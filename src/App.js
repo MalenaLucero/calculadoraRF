@@ -2,6 +2,8 @@ import React from 'react';
 import Header from './components/Header'
 import TaxPercentage from './helpers/TaxPercentage'
 import InterestPercentage from './helpers/InterestPercentage';
+import ChooseCurrency from './components/ChooseCurrency'
+import './App.scss'
 
 
 class App extends React.Component{
@@ -15,21 +17,27 @@ class App extends React.Component{
         {year: 2018, minimum: 66917, pesosTax: 5, dollarsTax:15},
         {year: 2019, minimum: 104735.77, pesosTax: 5, dollarsTax:15}
       ],
-      currentState:{
-        currentCurrency: '',
-        currentYear: '',
-        currentSection: '',
-      }
+      currentCurrency: '',
+      currentYear: '',
+      currentSection: '',
     }
   }
+
+  currencyHandler = (event) =>{
+    let newCurrency = event.target.innerText
+    this.setState({currentCurrency: newCurrency})
+  }
+
   render(){
-    let totalAmount = 300000
-    let taxPercentage = 5
-    let interestRate = 50
-    let interesesTotales= 150000
+    console.log(this.state.currentCurrency)
     return(
       <React.Fragment>
         <Header title={this.state.title} data={this.state.taxData[1]}/>
+        <ChooseCurrency 
+          currencyArray={this.state.currency} 
+          currencyHandler={this.currencyHandler}
+          className={'hide'}
+        />
       </React.Fragment>
     )
   }
