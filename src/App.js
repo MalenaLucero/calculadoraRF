@@ -3,6 +3,7 @@ import Header from './components/Header'
 import TaxPercentage from './helpers/TaxPercentage'
 import InterestPercentage from './helpers/InterestPercentage';
 import ChooseCurrency from './components/ChooseCurrency'
+import ChooseAvailableInfo from './components/ChooseAvailableInfo'
 import './App.scss'
 
 
@@ -12,7 +13,7 @@ class App extends React.Component{
     this.state={
       title: 'Calculadora de impuesto a la renta financiera',
       currency: ['pesos', 'dolares'],
-      sections: ['Monto total, TNA promedio y plazo', 'Intereses totales anuales', 'Monto, TNA y plazo por periodos'],
+      availableInformation: ['Intereses totales', 'Monto total, TNA promedio y plazo total',  'Detalle de monto, TNA y plazo por períodos'],
       taxData: [
         {year: 2018, minimum: 66917, pesosTax: 5, dollarsTax:15},
         {year: 2019, minimum: 104735.77, pesosTax: 5, dollarsTax:15}
@@ -37,6 +38,7 @@ class App extends React.Component{
           currencyHandler={this.currencyHandler}
           show={this.state.currentCurrency === '' ? true : false}
         />
+        <ChooseAvailableInfo availableInfo={this.state.availableInformation}/>
       </React.Fragment>
     )
   }
