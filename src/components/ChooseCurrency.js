@@ -4,9 +4,9 @@ import './ChooseCurrency.scss'
 const CurrencyButton = ({currency, currencyHandler}) =>
     <a href={'#'} onClick={currencyHandler}>{currency}</a>
 
-const ChooseCurrency = ({currencyArray, currencyHandler}) =>{
+const ChooseCurrency = ({currencyArray, currencyHandler, show}) =>{
     return(
-        <section>
+        <section className={show ? 'show' : 'hide'}>
             <h2>Paso uno</h2>
             <p>Elegir la moneda del plazo fijo</p>
             <div>

@@ -29,14 +29,13 @@ class App extends React.Component{
   }
 
   render(){
-    console.log(this.state.currentCurrency)
     return(
       <React.Fragment>
         <Header title={this.state.title} data={this.state.taxData[1]}/>
         <ChooseCurrency 
           currencyArray={this.state.currency} 
           currencyHandler={this.currencyHandler}
-          className={'hide'}
+          show={this.state.currentCurrency === '' ? true : false}
         />
       </React.Fragment>
     )
