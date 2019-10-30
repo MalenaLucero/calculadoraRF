@@ -1,14 +1,14 @@
 import React from 'react'
 
-const InfoButton = ({info}) =>
-    <a href={'#'}>{info}</a>
+const InfoButton = ({info, currentInformationHandler}) =>
+    <button type={'button'} onClick={()=>currentInformationHandler(info)}>{info}</button>
 
-const ChooseAvailableInfo = ({availableInfo}) =>{
+const ChooseAvailableInfo = ({availableInfo, isShown, currentInformationHandler}) =>{
     return(
-        <section>
+        <section className={isShown ? 'show' : 'hide'}>
           <h2>Paso dos</h2>
-          <p>¿Que datos tenés del o de los plazos fijos?</p>
-          {availableInfo.map((info, i)=><InfoButton key={i} info={info}/>)}
+          <p>¿Qué datos tenés del o de los plazos fijos del año?</p>
+          {availableInfo.map((info, i)=><InfoButton key={i} info={info} currentInformationHandler={currentInformationHandler}/>)}
         </section>
     )
 }

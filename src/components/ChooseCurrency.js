@@ -2,11 +2,11 @@ import React from 'react'
 import './ChooseCurrency.scss'
 
 const CurrencyButton = ({currency, currencyHandler}) =>
-    <a href={'#'} onClick={currencyHandler}>{currency}</a>
+    <button type={'button'} onClick={()=>currencyHandler(currency)}>{currency}</button>
 
-const ChooseCurrency = ({currencyArray, currencyHandler, show}) =>{
+const ChooseCurrency = ({currencyArray, currencyHandler, isShown}) =>{
     return(
-        <section className={show ? 'show' : 'hide'}>
+        <section className={isShown ? 'show' : 'hide'}>
             <h2>Paso uno</h2>
             <p>Elegir la moneda del plazo fijo</p>
             <div>
