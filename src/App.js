@@ -4,7 +4,6 @@ import TaxPercentage from './helpers/TaxPercentage'
 import InterestPercentage from './helpers/InterestPercentage';
 import ChooseCurrency from './components/ChooseCurrency'
 import ChooseAvailableInfo from './components/ChooseAvailableInfo'
-import ShowCurrentCurrency from './components/ShowCurrentCurrency'
 import ShowChosenItem from './components/ShowChosenItem'
 import './App.scss'
 
@@ -32,6 +31,7 @@ class App extends React.Component{
 
   changeCurrencyHandler = () =>{
     this.setState({currentCurrency: ''})
+    this.setState({currentInformation: ''})
   }
 
   currentInformationHandler = (info) =>{
