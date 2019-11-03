@@ -1,11 +1,10 @@
 import React from 'react'
 
-const ShowChosenItem = ({isShown, sectionDescription, chosenItem, buttonText, currentSection, sectionHandler}) =>{
-    let previousSection = currentSection - 1
+const ShowChosenItem = ({isShown, sectionDescription, chosenItem, buttonText, currentStateCleaner}) =>{
     return(
         <div className={isShown ? 'show' : 'hide'}>
             <h3>{sectionDescription}: {chosenItem}</h3>
-            <button type={'button'} onClick={()=>sectionHandler(previousSection)}>{buttonText}</button>
+            <button type={'button'} onClick={()=>currentStateCleaner()}>{buttonText}</button>
         </div>
     )
 }
