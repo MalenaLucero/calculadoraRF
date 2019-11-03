@@ -1,10 +1,8 @@
 import React from 'react';
+import { Formik, Field, Form } from 'formik';
 import Header from './components/Header'
 import TaxPercentage from './helpers/TaxPercentage'
 import InterestPercentage from './helpers/InterestPercentage';
-import ChooseYear from './components/ChooseYear'
-import ChooseCurrency from './components/ChooseCurrency'
-import ChooseAvailableInfo from './components/ChooseAvailableInfo'
 import ShowChosenItem from './components/ShowChosenItem'
 import Section from './components/Section'
 import './App.scss'
@@ -17,11 +15,9 @@ class App extends React.Component{
       title: 'Calculadora de impuesto a la renta financiera',
       sections:[
         {number: 1, type: 'year', title: 'Paso uno', description: '¿De qué año querés calcular el impuesto?', options: [2018, 2019]},
-        {number: 2, type: 'currency', title: 'Paso dos', description: '¿En que moneda estan los plazos fijos?', options: ['pesos', 'dolares']}
+        {number: 2, type: 'currency', title: 'Paso dos', description: '¿En que moneda estan los plazos fijos?', options: ['pesos', 'dolares']},
+        {number: 3, type: 'information', title: 'Paso tres', description: '¿Qué datos tenés de los plazos fijos', options: ['Intereses totales', 'Monto total, TNA promedio y plazo total',  'Detalle de monto, TNA y plazo por períodos']}
       ],
-      //availableYears: [2018, 2019],
-      currency: ['pesos', 'dolares'],
-      availableInformation: ['Intereses totales', 'Monto total, TNA promedio y plazo total',  'Detalle de monto, TNA y plazo por períodos'],
       taxData: [
         {year: 2018, minimum: 66917, pesosTax: 5, dollarsTax:15},
         {year: 2019, minimum: 104735.77, pesosTax: 5, dollarsTax:15}
@@ -30,6 +26,7 @@ class App extends React.Component{
       currentYear: '',
       currentCurrency: '',
       currentInformation: '',
+
     }
   }
 
@@ -39,7 +36,7 @@ class App extends React.Component{
 
   yearHandler = (year) =>{
     this.setState({currentYear: year})
-    this.currentSectionHandler(2)
+    if(this.state.currentSection === 1) this.currentSectionHandler(2)
   }
 
   currentStateCleaner = () =>{
@@ -48,16 +45,20 @@ class App extends React.Component{
 
   currencyHandler = (currency) =>{
     this.setState({currentCurrency: currency})
-    this.currentSectionHandler(3)
+    if(this.state.currentSection === 2) this.currentSectionHandler(3)
   }
 
   currencyCleaner = () =>{
     this.setState({currentCurrency: ''})
   }
 
-  currentInformationHandler = (info) =>{
+  informationHandler = (info) =>{
     this.setState({currentInformation: info})
-    this.currentSectionHandler(4)
+    if(this.state.currentSection === 3) this.currentSectionHandler(4)
+  }
+
+  informationCleaner = () =>{
+    this.setState({currentInformation: ''})
   }
 
   render(){
@@ -89,31 +90,17 @@ class App extends React.Component{
           chosenItem={this.state.currentCurrency}
           buttonText={'Cambiar moneda'}
           currentStateCleaner={this.currencyCleaner}/>
-        
-        {/*<ChooseCurrency 
-          currentSection={this.state.currentSection}
-          currencyArray={this.state.currency} 
-          currencyHandler={this.currencyHandler}/>
-        <ShowChosenItem
-          isShown={this.state.currentSection > 2 ? true : false}
-          sectionDescription={'Moneda de los plazos fijos'}
-          chosenItem={this.state.currentCurrency}
-          buttonText={'Cambiar moneda'}
-          currentSection={3}
-        sectionHandler={this.currentSectionHandler}/>*/}
         {/*STEP THREE*/}
-        <ChooseAvailableInfo 
-          currentSection={this.state.currentSection} 
-          currentYear={this.state.currentYear}
-          availableInfo={this.state.availableInformation}
-          currentInformationHandler={this.currentInformationHandler}/>
+        <Section 
+         sectionData={this.state.sections[2]}
+         isShown={this.state.currentInformation === '' && this.state.currentSection > 2 ? true : false}
+         currentStateHandler={this.informationHandler}/>
         <ShowChosenItem
-          isShown={this.state.currentSection > 3 ? true : false}
-          sectionDescription={'Contás con esta información'}
+          isShown={this.state.currentInformation !== '' ? true : false}
+          sectionDescription={'Información de los plazos fijos'}
           chosenItem={this.state.currentInformation}
-          buttonText={'Cambiar información'}
-          currentSection={4}
-          sectionHandler={this.currentSectionHandler}/>
+          buttonText={'Cambiar datos'}
+          currentStateCleaner={this.informationCleaner}/>
       </React.Fragment>
     )
   }
